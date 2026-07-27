@@ -1,0 +1,11 @@
+[project]
+name = "evemarket"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "duckdb>=1.5.5",
+    "httpx>=0.28.1",
+    "msgspec>=0.21.1",
+]
