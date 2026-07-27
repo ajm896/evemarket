@@ -1,7 +1,10 @@
-from httpx import AsyncClient
 import asyncio
-from models.price import Price
+
 import msgspec
+from httpx import AsyncClient
+
+from evemarket.models import Price
+
 
 class ESIClient:
     def __init__(self, client: AsyncClient):
@@ -12,4 +15,3 @@ class ESIClient:
         async with self._semaphore:
             response = await self._client.get("/markets/prices")
         return msgspec.json.decode(response.content, type=list[Price])
-
