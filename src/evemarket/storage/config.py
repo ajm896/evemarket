@@ -20,6 +20,7 @@ def ensure_schema(conn: duckdb.DuckDBPyConnection) -> None:
         """
         CREATE TABLE IF NOT EXISTS market_prices (
             pulled_at      TIMESTAMPTZ NOT NULL,
+            etag           TEXT,
             type_id        INTEGER     NOT NULL,
             adjusted_price DOUBLE,
             average_price  DOUBLE

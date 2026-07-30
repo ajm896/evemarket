@@ -2,14 +2,19 @@ import asyncio
 
 from httpx import AsyncClient
 
-
 class ESIClient:
     def __init__(self, client: AsyncClient):
         self._client: AsyncClient = client
         self._semaphore: asyncio.Semaphore = asyncio.Semaphore(30)
 
-    async def market_prices(self) -> bytes:
+    async def market_prices(self, etag: str) -> tuple[bytes, str] | tuple[None, None]:
         async with self._semaphore:
-            response = await self._client.get("/markets/prices")
-            response.raise_for_status()
-        return response.content
+            headers = {
+                    "If-None-Match": etag
+                    }
+            response = await self._client.get("/markets/prices", headers=headers)
+            headers = response.headers
+            if response.status_code == 304:
+                return None, None
+            _ = response.raise_for_status()
+        return response.content, headers.get("ETag", "N/A")
