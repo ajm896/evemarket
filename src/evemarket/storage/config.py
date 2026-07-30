@@ -27,3 +27,4 @@ def ensure_schema(conn: duckdb.DuckDBPyConnection) -> None:
         )
         """
     )
+    conn.execute("ALTER TABLE market_prices ADD COLUMN IF NOT EXISTS etag TEXT")
