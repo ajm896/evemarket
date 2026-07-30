@@ -18,3 +18,12 @@ class ESIClient:
                 return None, None
             _ = response.raise_for_status()
         return response.content, headers.get("ETag", "N/A")
+
+    async def character_assets(self, character_id: int, access_token: str, page: int = 1) -> tuple[bytes, int]:
+        async with self._semaphore:
+            headers = {"Authorization": f"Bearer {access_token}"}
+            response = await self._client.get(
+                f"/characters/{character_id}/assets", headers=headers, params={"page": page}
+            )
+            _ = response.raise_for_status()
+        return response.content, int(response.headers.get("X-Pages", 1))

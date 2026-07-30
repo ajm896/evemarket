@@ -2,10 +2,10 @@ from httpx import AsyncClient
 
 BASE_URL = "https://esi.evetech.net"
 # Pins the ESI schema version. Bumping this can change response shapes, so update
-# the structs in evemarket.models alongside it.
+# ensure_schema()'s DDL and the storage/ read_json column expectations alongside it.
 COMPATIBILITY_DATE = "2026-07-21"
-# ESI policy requires a contact identifier. This is still a placeholder.
-USER_AGENT = "EveMarketData/0.1 (AJ; aj@example.com)"
+# ESI policy requires a contact identifier.
+USER_AGENT = "EveMarketData/0.1 (AJ; amorris@amorris.cc)"
 TIMEOUT = 30
 
 

@@ -13,3 +13,7 @@ __pycache__
 # Local DuckDB database
 *.duckdb
 *.duckdb.wal
+
+# Local secrets
+.env
+.env.*
